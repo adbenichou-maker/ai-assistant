@@ -1,1 +1,36 @@
 // Specific CSS for your home-page
+.land-page .banner {
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0;
+}
+
+.land-page .banner h1 {
+  margin: 0;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.land-page .banner p {
+  font-size: 20px;
+  color: white;
+  opacity: .7;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.land-page .my-button {
+  text-decoration: none;
+  padding: 0.7rem;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  margin-right: 1rem;
+  transition: all 0.3s;
+}
+
+.land-page .my-button:hover {
+  background-color: white;
+  color: blue;
+}
