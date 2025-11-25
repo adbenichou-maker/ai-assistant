@@ -74,4 +74,5 @@ group :test do
   gem "selenium-webdriver"
 end
 gem "ruby_llm", "~> 1.2.0"
+gem "devise"
 gem "dotenv-rails"
