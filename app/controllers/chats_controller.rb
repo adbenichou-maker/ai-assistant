@@ -2,6 +2,9 @@ require 'ostruct'
 
 class ChatsController < ApplicationController
 
+  def index
+  end
+
   def new
     @chat = Chat.new()
 
@@ -16,6 +19,7 @@ class ChatsController < ApplicationController
   end
 
   before_action :set_chat, only: [:show]
+  before_action :authenticate_user!
 
   SYSTEM_PROMPT = <<~PROMPT
     You are an expert chef and cooking assistant.
