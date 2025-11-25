@@ -6,16 +6,21 @@ Rails.application.routes.draw do
   get "/dashboard", to: "pages#dashboard"
 
   # Devise
-  devise_for :users
+  # devise_for :users
 
   # Chats
-  get  "/chats",          to: "chats#index"
-  get  "/chats/:id",      to: "chats#show"
-  get  "/chats/new",      to: "chats#new"
-  post "/chats",          to: "chats#create"
+  # get  "/chats",          to: "chats#index"
+  # get  "/chats/new",      to: "chats#new"
+  # get  "/chats/:id",      to: "chats#show"
+  # post "/chats",          to: "chats#create"
+
+  resources :chats, only: [:index, :new, :show, :create] do
+    resources :messages, only: [:create]
+  end
+
 
   # Messages inside a chat
-  post "/chat/:id/messages", to: "chats#create"
+  #  post "/chat/:id/messages", to: "chats#create"
 
   # Recipes
   get    "/recipes",     to: "recipes#index"
