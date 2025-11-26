@@ -11,10 +11,6 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-          <%= req.input :cuisine,
-              label: "Cuisine Style (e.g., Italian, Thai, Fusion)",
-              required: true,
-              input_html: { class: 'rounded-lg' } %>
           <%= req.input :ingredients,
               label: "Key Ingredients (e.g., Salmon, Asparagus, Lemon)",
               required: true,
@@ -38,7 +34,10 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <%= req.input :meal_prep_time,
-              collection: [10, 15, 20, 30, 45, "1hr +"],
+              collection: [
+              [10, 10], [15, 15], [20, 20], [30, 30], [45, 45],
+              ["1hr +", 60]
+            ],
               label: "Preparation Time",
               prompt: "Select preparation time",
               input_html: { class: 'rounded-lg' } %>
@@ -51,8 +50,8 @@
       </div>
     <% end %>
 
-    <div class="mt-8">
-      <%= f.button :submit, 'Generate Recipes!', class: 'w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-150' %>
+    <div class="m-5">
+      <%= f.submit 'Generate Recipes!', class: 'btn btn-primary' %>
     </div>
   <% end %>
 </div>
