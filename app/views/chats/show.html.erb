@@ -1,4 +1,4 @@
-<h1><%= @chat.title %></h1>
+<h1><%= "Recipes including: #{@chat.title}" %></h1>
 
 <div id="messages" class="mb-5">
 
@@ -13,7 +13,7 @@
     <% else %>
       <div class="d-flex justify-content-start mb-4">
         <div class="px-3 py-2 bg-white border rounded">
-          <%= raw markdown(message.content) %>
+          <%= raw(render_markdown(message.content)) %>
         </div>
       </div>
     <% end %>

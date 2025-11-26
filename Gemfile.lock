@@ -144,6 +144,7 @@ GEM
       net-http (~> 0.5)
     faraday-retry (2.3.2)
       faraday (~> 2.0)
+    ffi (1.17.2-arm64-darwin)
     ffi (1.17.2-x86_64-linux-gnu)
     font-awesome-sass (6.7.2)
       sassc (~> 2.0)
@@ -164,6 +165,10 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     json (2.16.0)
+    kramdown (2.5.1)
+      rexml (>= 3.3.9)
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     logger (1.7.0)
     loofah (2.24.1)
       crass (~> 1.0.2)
@@ -193,10 +198,13 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
+    nokogiri (1.18.10-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-gnu)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.6.2)
+    pg (1.6.2-arm64-darwin)
     pg (1.6.2-x86_64-linux)
     popper_js (2.11.8)
     pp (0.6.3)
@@ -260,6 +268,7 @@ GEM
       actionpack (>= 7.0)
       railties (>= 7.0)
     rexml (3.4.4)
+    rouge (4.6.1)
     ruby_llm (1.2.0)
       base64
       event_stream_parser (~> 1)
@@ -322,6 +331,7 @@ GEM
     zeitwerk (2.7.3)
 
 PLATFORMS
+  arm64-darwin-24
   x86_64-linux
   x86_64-linux-gnu
 
@@ -336,9 +346,12 @@ DEPENDENCIES
   font-awesome-sass (~> 6.1)
   importmap-rails
   jbuilder
+  kramdown
+  kramdown-parser-gfm
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.6)
+  rouge
   ruby_llm (~> 1.2.0)
   sassc-rails
   selenium-webdriver
