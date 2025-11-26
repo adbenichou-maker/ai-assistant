@@ -8,7 +8,6 @@ class ChatsController < ApplicationController
     @chat = Chat.new()
 
     @recipe_requirements = {
-      cuisine: nil,
       ingredients: nil,
       skill_level: 'Beginner',
       meal_type: 'Dinner',
@@ -18,6 +17,7 @@ class ChatsController < ApplicationController
   end
 
   def create
+    puts @chat
   end
 
 
