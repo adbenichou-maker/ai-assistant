@@ -94,4 +94,7 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  #Sends reset password mail
+  config.action_mailer.default_url_options = { host: "https://git.heroku.com/ai-assistant-adbenichou-maker.git" }
 end
