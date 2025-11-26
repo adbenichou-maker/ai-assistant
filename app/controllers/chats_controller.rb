@@ -20,7 +20,10 @@ class ChatsController < ApplicationController
 <<<<<<< HEAD
   def create
     puts @chat
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> d3f5b7f11e8d39fc543c77ccaac998bb607af150
   before_action :set_chat, only: [:show]
   before_action :authenticate_user!
 
@@ -53,7 +56,10 @@ class ChatsController < ApplicationController
   def show
     # A blank Message object for the new-message form
     @message = Message.new
+<<<<<<< HEAD
 >>>>>>> 0482ff9cc2086415dfef92b8650d19325721087e
+=======
+>>>>>>> d3f5b7f11e8d39fc543c77ccaac998bb607af150
   end
 
   private
