@@ -4,9 +4,10 @@ class CreateRecipes < ActiveRecord::Migration[7.1]
       t.string :title
       t.integer :prep_time
       t.integer :cooking_time
-      t.string :ingredients
+      t.jsonb :ingredients, default: {}
+      t.jsonb :steps, default: []
+
       t.text :description
-      t.text :steps
 
       t.timestamps
     end

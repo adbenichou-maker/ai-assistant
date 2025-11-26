@@ -1,5 +1,19 @@
-<h1><%= @recipe.title %></h1>
 
+<div>
+
+</div>
+
+
+
+<h1><%= @recipe.title %></h1>
+<h2><%= @recipe.cooking_time %>min</h2>
+
+<ul>
+  <% @recipe.steps.each do |step| %>
+    <li><h5><%= step %></h5></li>
+  <% end %>
+
+</ul>
 
 <div>
   <%= button_to "Destroy this recipe", @recipe, method: :delete %>
