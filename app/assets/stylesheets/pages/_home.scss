@@ -1,11 +1,22 @@
 // Specific CSS for your home-page
-.land-page .banner {
+.land-page .bannerin {
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  height: 18rem;
+}
+
+.land-page .bannerout {
   background-size: cover;
   background-position: center;
   padding: 150px 0;
 }
 
-.land-page .banner h1 {
+.land-page .bannerin h1, .land-page .bannerout h1 {
   margin: 0;
   color: white;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
@@ -13,7 +24,7 @@
   font-weight: bold;
 }
 
-.land-page .banner p {
+.land-page .bannerin p, .land-page .bannerout p {
   font-size: 20px;
   color: white;
   opacity: .7;
@@ -33,4 +44,61 @@
 .land-page .my-button:hover {
   background-color: white;
   color: blue;
+}
+
+.land-page h3{
+  color: white;
+  font-weight: 700;
+}
+
+.land-page .cards {
+  border-radius: 5px;
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+  height: 25rem;
+}
+
+.land-page .cards {
+  border-radius: 5px;
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  height: 25rem;
+  justify-items: center;
+}
+
+
+.land-page .card-category{
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+  font-size: larger;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.land-page .card-category .card-link {
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  font-size: larger;
+  transition: all 0.3s;
+}
+
+.land-page .card-category .card-link:hover {
+  color: orange;
+  font-size: x-large;
+}
+
+
+.land-page .card-category {
+  width: 100%;
+  max-width: 25rem;
 }
