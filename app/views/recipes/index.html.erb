@@ -1,4 +1,10 @@
-<h1>Recipes</h1>
-<% @recipes.each do |recipe| %>
-<p><%= recipe.title %></p>
-<% end %>
+<h1>My Saved Recipes</h1>
+
+<% if @recipes.any? %>
+  <ul>
+    <% @recipes.each do |recipe| %>
+      <li>
+        <h2>
+          <%= link_to recipe.title, recipe_path(recipe) %>
+        </h2>
+    <% end %>
