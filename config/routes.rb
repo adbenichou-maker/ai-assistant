@@ -24,8 +24,10 @@ Rails.application.routes.draw do
   #  post "/chat/:id/messages", to: "chats#create"
 
   # Recipes
-  get    "/recipes",     to: "recipes#index"
-  get    "/recipes/:id", to: "recipes#show"
-  delete "/recipes/:id", to: "recipes#destroy"
+  # get    "/recipes",     to: "recipes#index"
+  # get    "/recipes/:id", to: "recipes#show"
+  # delete "/recipes/:id", to: "recipes#destroy"
+
+  resources :recipes, only: [:index, :destroy, :show, :create]
 
 end

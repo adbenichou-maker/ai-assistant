@@ -1,6 +1,57 @@
-<h1><%= @recipe.title %></h1>
 
 
-<div>
-  <%= button_to "Destroy this recipe", @recipe, method: :delete %>
+<div class="d-flex justify-content-center bg-secondary p-2" style="--bs-bg-opacity: .5;">
+  <div class="card p-3" style="width: 70%">
+
+    <div style="
+      background-image:
+        linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
+        url(<%= image_url('odiseo-castrejon-1SPu0KT-Ejg-unsplash.jpg') %>);
+      background-size: cover;
+      background-position: center;
+      min-height: 250px; /* <--- ADDED MINIMUM HEIGHT */
+      border-radius: .25rem; /* Matches card corners */
+    ">
+    </div>
+
+    <div class="card-title text-center">
+      <h1 class="fw-bold"><%= @recipe.title %></h1>
+    </div>
+
+    <div class="card-body">
+
+      <h3 class="fw-bold">Description:</h3>
+      <p><%= @recipe.description %></p>
+      <h3>Cooking time: <%= @recipe.cooking_time %> min</h3>
+
+
+      <h3 class="fw-bold">Ingredients:</h3>
+
+      <ul>
+        <% @recipe.ingredients.each_with_index do |ingredient, index| %>
+
+          <li class="list-group-item">
+            <h5><i class="fa-solid fa-angles-right"></i> <%= ingredient.join %></h5>
+          </li>
+
+        <% end  %>
+      </ul>
+
+      <h3 class="fw-bold">Steps:</h3>
+      <ul>
+        <% @recipe.steps.each do |step| %>
+          <li class="list-group-item">
+            <h5><%= step %></h5>
+          </li>
+        <% end %>
+      </ul>
+      <div class="mb-3">
+        <%= button_to "Destroy this recipe", @recipe, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger rounded' %>
+        </div>
+      <div class="mb-3">
+        <%= link_to "Return to recipes", recipes_path, class: 'btn btn-primary rounded' %>
+      </div>
+    </div>
+
+  </div>
 </div>
