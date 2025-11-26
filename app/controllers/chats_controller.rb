@@ -1,6 +1,8 @@
 require 'ostruct'
 
 class ChatsController < ApplicationController
+  before_action :set_chat, only: [:show]
+  before_action :authenticate_user!
 
   def index
   end
@@ -17,15 +19,10 @@ class ChatsController < ApplicationController
     }
   end
 
-<<<<<<< HEAD
+
   def create
     puts @chat
-<<<<<<< HEAD
-=======
-=======
->>>>>>> d3f5b7f11e8d39fc543c77ccaac998bb607af150
-  before_action :set_chat, only: [:show]
-  before_action :authenticate_user!
+  end
 
   SYSTEM_PROMPT = <<~PROMPT
     You are an expert chef and cooking assistant.
@@ -56,10 +53,6 @@ class ChatsController < ApplicationController
   def show
     # A blank Message object for the new-message form
     @message = Message.new
-<<<<<<< HEAD
->>>>>>> 0482ff9cc2086415dfef92b8650d19325721087e
-=======
->>>>>>> d3f5b7f11e8d39fc543c77ccaac998bb607af150
   end
 
   private
@@ -67,5 +60,4 @@ class ChatsController < ApplicationController
   def set_chat
     @chat = current_user.chats.find(params[:id])
   end
-
 end
