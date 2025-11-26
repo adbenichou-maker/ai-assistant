@@ -9,7 +9,6 @@ class ChatsController < ApplicationController
     @chat = Chat.new()
 
     @recipe_requirements = {
-      cuisine: nil,
       ingredients: nil,
       skill_level: 'Beginner',
       meal_type: 'Dinner',
@@ -18,6 +17,8 @@ class ChatsController < ApplicationController
     }
   end
 
+  def create
+    puts @chat
   before_action :set_chat, only: [:show]
   before_action :authenticate_user!
 
