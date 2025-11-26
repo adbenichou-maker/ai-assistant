@@ -11,17 +11,8 @@ class MessagesController < ApplicationController
     # 2. Build full conversation context
     ruby_llm_chat = RubyLLM.chat
 
-    # 3. System prompt + history messages + new user message
-    messages_for_llm = [
-      { role: "system", content: ChatsController::SYSTEM_PROMPT }
-    ]
-
-    @chat.messages.order(:created_at).each do |m|
-      messages_for_llm << { role: m.role, content: m.content }
-    end
-
     # 4. Ask the LLM
-    response = ruby_llm_chat.ask(messages_for_llm)
+    response = ruby_llm_chat.ask(@message.content)
 
     # 5. Save assistant response
     Message.create!(
