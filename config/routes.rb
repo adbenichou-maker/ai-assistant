@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   # get    "/recipes/:id", to: "recipes#show"
   # delete "/recipes/:id", to: "recipes#destroy"
 
-  resources :recipes, only: [:index, :destroy, :show, :create]
+  resources :recipes, only: [:index, :destroy, :show]
 
+  resources :messages, only: [] do
+    resources :recipes, only: [:new, :create]
+  end
 end
