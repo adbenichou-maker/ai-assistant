@@ -14,7 +14,7 @@ before_action :set_recipes
 private
 
 def set_recipes
-  @recipes = Recipe.all
+  @recipes = current_user.recipes
 end
 
 end
