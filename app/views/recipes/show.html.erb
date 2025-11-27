@@ -28,13 +28,16 @@
       <h3 class="fw-bold">Ingredients:</h3>
 
       <ul>
-        <% @recipe.ingredients.each_with_index do |ingredient, index| %>
+        <% @recipe.ingredients.each do |name, amount| %>
 
           <li class="list-group-item">
-            <h5><i class="fa-solid fa-angles-right"></i> <%= ingredient.join %></h5>
+            <h5>
+              <i class="fa-solid fa-angles-right"></i>
+              <span class="fw-bold"><%= name %>:</span> <%= amount %>
+            </h5>
           </li>
 
-        <% end  %>
+        <% end %>
       </ul>
 
       <h3 class="fw-bold">Steps:</h3>
