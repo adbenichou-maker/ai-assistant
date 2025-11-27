@@ -14,40 +14,16 @@
     ">
     </div>
 
-    <div class="card-title text-center">
-      <h1 class="fw-bold"><%= @recipe.title %></h1>
-    </div>
 
     <div class="card-body">
 
-      <h3 class="fw-bold">Description:</h3>
-      <p><%= @recipe.description %></p>
-      <h3>Cooking time: <%= @recipe.cooking_time %> min</h3>
+
+      <%= raw(render_markdown(@recipe.content)) %>
 
 
-      <h3 class="fw-bold">Ingredients:</h3>
 
-      <ul>
-        <% @recipe.ingredients.each do |name, amount| %>
 
-          <li class="list-group-item">
-            <h5>
-              <i class="fa-solid fa-angles-right"></i>
-              <span class="fw-bold"><%= name %>:</span> <%= amount %>
-            </h5>
-          </li>
 
-        <% end %>
-      </ul>
-
-      <h3 class="fw-bold">Steps:</h3>
-      <ul>
-        <% @recipe.steps.each do |step| %>
-          <li class="list-group-item">
-            <h5><%= step %></h5>
-          </li>
-        <% end %>
-      </ul>
       <div class="mb-3">
         <%= button_to "Destroy this recipe", @recipe, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger rounded' %>
         </div>

@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_27_100028) do
   end
 
   create_table "recipes", force: :cascade do |t|
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "content", null: false
