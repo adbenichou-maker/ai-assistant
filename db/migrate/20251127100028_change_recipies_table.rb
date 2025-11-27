@@ -3,7 +3,6 @@ class ChangeRecipiesTable < ActiveRecord::Migration[7.1]
 
     add_column :recipes, :content, :text
 
-    add_reference :recipes, :user, null: true, foreign_key: true
 
     Recipe.reset_column_information
 

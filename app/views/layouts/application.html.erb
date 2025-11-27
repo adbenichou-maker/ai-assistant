@@ -8,55 +8,40 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body>
+
+  <body class="<%= user_signed_in? ? 'logged-in' : 'logged-out' %>">
     <% unless devise_controller? %>
       <div class="navbar navbar-expand-sm navbar-light navbar-lewagon sticky-top">
-    <div class="container-fluid">
-      <%= link_to root_path, class: "navbar-brand" do %>
-        <%= image_tag "fridgeogo.png" %>
-      <% end %>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto">
-          <% if user_signed_in? %>
-            <li class="nav-item">
-              <%= link_to "Cookbook", recipes_path, class: "nav-link" %>
-            </li>
-
-            <%# ------------------------------------------------------------------- %>
-            <%# NEW: Chats button triggers the Offcanvas slider from the right     %>
-            <li class="nav-item">
-              <button class="nav-link btn btn-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#chatsOffcanvas" aria-controls="chatsOffcanvas">
-                Chats
-              </button>
-            </li>
-            <%# ------------------------------------------------------------------- %>
-
-            <li class="nav-item dropdown">
-              <%= image_tag "https://cdn-icons-png.flaticon.com/512/219/219983.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
-              </div>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
-            </li>
+        <div class="container-fluid">
+          <%= link_to root_path, class: "navbar-brand" do %>
+            <%= image_tag "fridgeogo.png" %>
           <% end %>
-        </ul>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <%= image_tag "https://cdn-icons-png.flaticon.com/512/219/219983.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <% if user_signed_in? %>
+                    <%= link_to "Cookbook", recipes_path, class: "dropdown-item" %>
+                    <%= link_to "Chats", chats_path, class: "dropdown-item" %>
+                    <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
+                  <% else %>
+                    <%= link_to "Sign in", new_user_session_path, class: "dropdown-item" %>
+                  <% end %>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
       <div class="container">
     <% end %>
       <%= yield %>
     </div>
-
-  <%# RENDER CHATS OFFCANVAS %>
-  <%= render 'shared/offcanvas' %>
   </body>
 </html>

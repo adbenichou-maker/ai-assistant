@@ -1,19 +1,46 @@
-// Specific CSS for your home-page
+// Banner
+
 .land-page .bannerin {
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740&q=80);
   background-size: cover;
   background-position: center;
   padding: 150px 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  text-align: left;
-  height: 18rem;
+  padding-left: 2rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 12rem;
+  margin: 0 auto;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 
 .land-page .bannerout {
-  background-size: cover;
-  background-position: center;
   padding: 150px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 2rem;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background-color: transparent;
+}
+
+.logged-out {
+  position: relative;
+  background-image: url(https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740&q=80);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.logged-out::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: -1;
 }
 
 .land-page .bannerin h1, .land-page .bannerout h1 {
@@ -31,58 +58,56 @@
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
+// custom button
 .land-page .my-button {
   text-decoration: none;
   padding: 0.7rem;
-  border-radius: 5px;
-  background-color: blue;
-  color: white;
+  background-color: #f15a26;
+  font-weight: 550;
+  color: #222222;
   margin-right: 1rem;
   transition: all 0.3s;
 }
 
 .land-page .my-button:hover {
-  background-color: white;
-  color: blue;
+  background-color: #222222;
+  color: #f15a26;
 }
 
+// H3 decoration
 .land-page h3{
   color: white;
   font-weight: 700;
 }
 
+// Card wrapper
 .land-page .cards {
-  border-radius: 5px;
-  margin: 1rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1rem;
-  height: 25rem;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 
-.land-page .cards {
-  border-radius: 5px;
-  margin: 1rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 1rem;
-  height: 25rem;
-  justify-items: center;
-}
-
-
-.land-page .card-category{
-  border-radius: 5px;
+// Single card
+.land-page .card-category {
+  width: 100%;
+  max-width: 1200px;
+  height: 22rem;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   font-weight: 700;
   font-size: larger;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 
 .land-page .card-category .card-link {
   text-decoration: none;
@@ -97,10 +122,18 @@
   font-size: x-large;
 }
 
+// Main page saved recipes animation
 
-.land-page .card-category {
-  width: 100%;
-  max-width: 25rem;
+.land-page .rotating-text {
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+
+// Background colors
+.navbar-lewagon {
+  background-color: #222 !important;
+  border-bottom: 2px solid #f15a26;
 }
 
 .my-button {
