@@ -25,8 +25,8 @@
 
   <%# Banner %>
 
-  <div class="<%= user_signed_in? ? 'bannerin' : 'bannerout' %>"
-      style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740&q=80);">
+
+  <div class="<%= user_signed_in? ? 'bannerin' : 'bannerout' %>">
 
     <div class="banner-inner">
       <% if user_signed_in? %>
@@ -59,9 +59,6 @@
          <% end %>
       </div>
     </div>
-
-  <% else %>
-  <h1>please log in</h1>
   <% end %>
 
 </div>

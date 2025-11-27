@@ -10,7 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= user_signed_in? ? 'logged-in' : 'logged-out' %>">
     <% unless devise_controller? %>
       <div class="navbar navbar-expand-sm navbar-light navbar-lewagon sticky-top">
         <div class="container-fluid">
