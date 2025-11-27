@@ -1,0 +1,11 @@
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <h1>Give a name to this recipe:</h1>
+      <%= simple_form_for @recipe do |f| %>
+        <%= f.input :title %>
+        <%= f.input :comment %>
+        <%= raw(render_markdown(@recipe.message.content)) %>
+        <%= f.submit class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>

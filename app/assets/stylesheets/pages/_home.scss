@@ -135,3 +135,17 @@
   background-color: #222 !important;
   border-bottom: 2px solid #f15a26;
 }
+
+.my-button {
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  transition: all 0.3s;
+  padding: 10px;
+}
+
+.my-button:hover {
+  background-color: white;
+  color: blue;
+}

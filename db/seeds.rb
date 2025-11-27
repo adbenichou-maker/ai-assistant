@@ -1,28 +1,30 @@
 puts "Cleaning database..."
+# FIX: Destroy dependent tables (Messages, Chats, and Recipes) before Users
+Message.destroy_all
+Chat.destroy_all
 Recipe.destroy_all
 User.destroy_all
 
-# --- Helper function to generate Markdown content ---
+
 def generate_markdown_content(data)
   markdown = "# #{data[:title]}\n\n"
   markdown += "**Description:** #{data[:description]}\n\n"
   markdown += "**Cooking Time:** #{data[:cooking_time]} minutes\n\n"
 
   markdown += "## Ingredients\n\n"
-  # Format ingredients as a bolded name followed by the amount
+
   data[:ingredients].each do |name, amount|
     markdown += "- **#{name.to_s.humanize}:** #{amount}\n"
   end
 
   markdown += "\n## Instructions\n\n"
-  # Format steps as an ordered list
+
   data[:steps].each_with_index do |step, index|
     markdown += "#{index + 1}. #{step}\n"
   end
 
   markdown
 end
-# ----------------------------------------------------
 
 
 puts "Creating user..."
@@ -32,7 +34,36 @@ user = User.create!(
   username: "testuser"
 )
 
+# --- START: CHAT AND MESSAGE CREATION ---
+puts "Creating one initial Chat and Message..."
+# Create the chat thread
+chat = Chat.create!(user: user)
+
+# Create the user's initial message that prompts the AI to suggest recipes
+# NOTE: Removed 'user: user' and replaced with 'role: "user"' to match the schema
+first_message = Message.create!(
+  chat: chat,
+  role: 'user',
+  content: "I have carrots, beetroot, and botifarra. What can I cook? I need 5 ideas."
+)
+
+# The ID of this message will be linked to all 5 recipes
+message_id_for_recipes = first_message.id
+
+# AI response to continue the thread
+# NOTE: Removed 'user: nil' and replaced with 'role: "ai"'
+Message.create!(
+  chat: chat,
+  role: 'ai',
+  content: "Great! Based on those three ingredients, here are five distinct recipe ideas. I'll save them to your cookbook for you!"
+)
+# --- END: CHAT AND MESSAGE CREATION ---
+
+
 puts "Creating 5 Recipes using Carrot, Beetroot, and Botifarra..."
+
+# Array to store all created recipe objects
+recipes = []
 
 # Recipe 1: Botifarra and Beetroot Hash
 recipe_1_data = {
@@ -54,10 +85,12 @@ recipe_1_data = {
   ]
 }
 
-Recipe.create!(
+# Recipe.create! now includes both user: user (for Recipe table) and message_id: ...
+recipes << Recipe.create!(
   content: generate_markdown_content(recipe_1_data),
-  title: recipe_1_data[:title], # <-- ADDED: Passes title to satisfy model validation
-  user: user
+  title: recipe_1_data[:title],
+  user: user,
+  message_id: message_id_for_recipes
 )
 
 # Recipe 2: Sweet & Savory Botifarra Skewers
@@ -81,10 +114,11 @@ recipe_2_data = {
   ]
 }
 
-Recipe.create!(
+recipes << Recipe.create!(
   content: generate_markdown_content(recipe_2_data),
-  title: recipe_2_data[:title], # <-- ADDED: Passes title to satisfy model validation
-  user: user
+  title: recipe_2_data[:title],
+  user: user,
+  message_id: message_id_for_recipes
 )
 
 # Recipe 3: Botifarra and Root Vegetable Crumble
@@ -111,10 +145,11 @@ recipe_3_data = {
   ]
 }
 
-Recipe.create!(
+recipes << Recipe.create!(
   content: generate_markdown_content(recipe_3_data),
-  title: recipe_3_data[:title], # <-- ADDED: Passes title to satisfy model validation
-  user: user
+  title: recipe_3_data[:title],
+  user: user,
+  message_id: message_id_for_recipes
 )
 
 # Recipe 4: Quick Botifarra & Beetroot Tostada
@@ -139,10 +174,11 @@ recipe_4_data = {
   ]
 }
 
-Recipe.create!(
+recipes << Recipe.create!(
   content: generate_markdown_content(recipe_4_data),
-  title: recipe_4_data[:title], # <-- ADDED: Passes title to satisfy model validation
-  user: user
+  title: recipe_4_data[:title],
+  user: user,
+  message_id: message_id_for_recipes
 )
 
 # Recipe 5: Shredded Root Slaw with Warm Botifarra
@@ -167,10 +203,11 @@ recipe_5_data = {
   ]
 }
 
-Recipe.create!(
+recipes << Recipe.create!(
   content: generate_markdown_content(recipe_5_data),
-  title: recipe_5_data[:title], # <-- ADDED: Passes title to satisfy model validation
-  user: user
+  title: recipe_5_data[:title],
+  user: user,
+  message_id: message_id_for_recipes
 )
 
-puts "Done seeding! Created #{Recipe.count} recipes."
+puts "Done seeding! Created #{Recipe.count} recipes and #{Chat.count} chat."

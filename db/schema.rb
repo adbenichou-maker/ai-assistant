@@ -39,8 +39,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_27_114131) do
     t.bigint "user_id"
     t.text "content", null: false
     t.string "comment"
-    t.bigint "messages_id"
-    t.index ["messages_id"], name: "index_recipes_on_messages_id"
+    t.bigint "message_id"
+    t.index ["message_id"], name: "index_recipes_on_message_id"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
@@ -59,6 +59,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_27_114131) do
 
   add_foreign_key "chats", "users"
   add_foreign_key "messages", "chats"
-  add_foreign_key "recipes", "messages", column: "messages_id"
+  add_foreign_key "recipes", "messages"
   add_foreign_key "recipes", "users"
 end
