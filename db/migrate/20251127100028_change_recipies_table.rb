@@ -16,7 +16,7 @@ class ChangeRecipiesTable < ActiveRecord::Migration[7.1]
     remove_column :recipes, :ingredients, :jsonb if column_exists?(:recipes, :ingredients)
     remove_column :recipes, :steps, :jsonb if column_exists?(:recipes, :steps)
     remove_column :recipes, :description, :text if column_exists?(:recipes, :description)
-
+    add_reference :recipes, :user, null: false, foreign_key: true
 
   end
 end
