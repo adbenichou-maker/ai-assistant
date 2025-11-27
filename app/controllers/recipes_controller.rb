@@ -5,28 +5,28 @@ class RecipesController < ApplicationController
 
   def new
     @message = Message.find(params[:message_id])
-    @recipe = Recipe.new(message: @message)
+    @recipe = Recipe.new
   end
 
-  def create
+def create
+  @message = Message.find(params[:message_id])
+  @recipe = Recipe.new(recipe_params)
+  @recipe.user = current_user
+  @recipe.message = @message
+
+  @recipe.content = @message.content
+
+  @recipe.save
+
+  if @recipe.save
+    redirect_to recipes_path, notice: "Recette sauvegardée !"
+  else
     @message = Message.find(params[:message_id])
+    render :new, status: :unprocessable_entity
 
-    # 2. Créer la Recipe en utilisant les Strong Parameters et l'association
-    @recipe = Recipe.new(recipe_params)
-    @recipe.message = @message
 
-    # Si vous voulez copier le contenu du message de l'IA dans la recette
-    # @recipe.content = @message.content
-
-    if @recipe.save
-      # 3. Rediriger vers la page du chat parent (@chat doit être récupéré via @message)
-      redirect_to chat_path(@message.chat), notice: "Recette sauvegardée !"
-    else
-      # Recharger le message pour la vue :new en cas d'erreur de validation
-      @message = Message.find(params[:message_id])
-      render :new, status: :unprocessable_entity
-    end
   end
+end
 
   def show
     @recipe = Recipe.find(params[:id])
@@ -42,7 +42,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :content, :notes)
+    params.require(:recipe).permit(:title, :content, :comment)
     # Ajoutez tous les attributs de Recipe qui peuvent être modifiés par le formulaire
   end
 
