@@ -4,42 +4,6 @@ class ChatsController < ApplicationController
   before_action :set_chat, only: [:show]
   before_action :authenticate_user!
 
-  SYSTEM_PROMPT = <<~PROMPT
-    You are an expert chef and cooking assistant.
-
-    The user just gave you his conditions that you need to respect:
-    - ingredients available in their fridge: #{@ingredients}
-    - dietary preferences:  #{@restrictions}
-    - cooking time constraints in minutes:  #{@meal_prep_time}
-    - their skill level:  #{@skill_level}
-
-    Your job:
-    - First suggest 3 possible recipes only displaying the title, short desription and list of ingredients
-    - Each recipe should be adapted to the ingredients they have
-    - If ingredients are missing, propose simple alternatives
-    - Keep instructions simple and beginner-friendly
-    - At the end of this first message ask the user to chose one recipe in particular, to detail the recipe in the second message
-
-    Format at first:
-    - Use Markdown
-    - For each recipe:
-      - Propose 3 recipe
-      - A title
-      - Short description
-      - List of ingredients needed
-      - Preparation time
-    Format once the user has selected a recipe:
-    - Use Markdown
-    - For each recipe:
-      - A title
-      - List of ingredients needed
-      - Step-by-step instructions
-      - Cooking tips when relevant
-
-    Tone: friendly, helpful, educational.
-  PROMPT
-
-
   def index
   end
 
@@ -74,34 +38,29 @@ class ChatsController < ApplicationController
     if @chat.save
       user_prompt = "My ingredients are: #{recipe_requirements[:ingredients]}, my skill level is: #{recipe_requirements[:skill_level]}, I have #{recipe_requirements[:meal_prep_time]} min to prepare it, my food restriction are: #{recipe_requirements[:restrictions]}"
 
-          # 2. Enregistrer le message de l'utilisateur (pour l'historique)
-          Message.create!(
-            chat: @chat,
-            role: "user",
-            content: user_prompt
-          )
+      # 2. Enregistrer le message de l'utilisateur (pour l'historique)
+      user_message = Message.create!(
+        chat: @chat,
+        role: "user",
+        content: user_prompt
+      )
 
-          # 3. Préparer le contexte (System Prompt + Nouveau Message Utilisateur)
-          # NOTE: Les variables d'instance (@ingredients, etc.) ne fonctionnent pas
-          # dans la constante SYSTEM_PROMPT. Il faut passer les valeurs dans la prompt de l'utilisateur.
-          llm_messages = [
-            { role: "system", content: SYSTEM_PROMPT },
-            { role: "user", content: user_prompt }
-          ]
+      @ruby_llm_chat = RubyLLM.chat
+      build_conversation_history
 
-          # 4. Appeler l'IA
-          # Assurez-vous que RubyLLM est bien configuré (clé API et modèle)
-          response = RubyLLM.chat.ask(llm_messages)
+      # 4. Appeler l'IA
+      # Assurez-vous que RubyLLM est bien configuré (clé API et modèle)
+      response = RubyLLM.chat.with_instructions(system_prompt).ask(user_message.content)
 
-          # 5. Sauvegarder la réponse de l'assistant
-          Message.create!(
-            chat: @chat,
-            role: "assistant",
-            content: response.content
-          )
+      # 5. Sauvegarder la réponse de l'assistant
+      Message.create!(
+        chat: @chat,
+        role: "assistant",
+        content: response.content
+      )
 
-          # 6. Rediriger (UNE SEULE FOIS)
-          redirect_to chat_path(@chat)
+      # 6. Rediriger (UNE SEULE FOIS)
+      redirect_to chat_path(@chat)
     else
       # Gérer l'erreur
       render :new, status: :unprocessable_entity
@@ -140,5 +99,16 @@ class ChatsController < ApplicationController
     ]
   )
   end
+
+  def system_prompt
+    Chat::SYSTEM_PROMPT + "  username:" + current_user.username
+  end
+
+  def build_conversation_history
+    @chat.messages.each do |message|
+      @ruby_llm_chat.add_message(message)
+    end
+  end
+
 
 end

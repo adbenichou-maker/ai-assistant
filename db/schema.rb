@@ -35,9 +35,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_26_102712) do
   create_table "recipes", force: :cascade do |t|
     t.string "title"
     t.integer "cooking_time"
-    t.jsonb "ingredients", default: {}
-    t.jsonb "steps", default: []
+    t.string "ingredients"
     t.text "description"
+    t.text "steps"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
