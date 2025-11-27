@@ -51,6 +51,10 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem "devise"
 
+gem "kramdown"
+gem "rouge"
+gem "kramdown-parser-gfm"
+
 group :development, :test do
   gem "dotenv-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -74,4 +78,3 @@ group :test do
   gem "selenium-webdriver"
 end
 gem "ruby_llm", "~> 1.2.0"
-gem "dotenv-rails"

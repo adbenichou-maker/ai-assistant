@@ -19,36 +19,55 @@ class ChatsController < ApplicationController
     }
   end
 
-
   def create
-    puts @chat
+    # Récupérer les paramètres autorisés (y compris le hash imbriqué)
+    recipe_requirements = chat_params[:recipe_requirements]
+    # Accéder aux ingrédients (vous pouvez les utiliser pour générer le premier message/prompt)
+    @ingredients = recipe_requirements[:ingredients]
+    @skill_level = recipe_requirements[:skill_level]
+    @meal_type = recipe_requirements[:meal_type]
+    @meal_prep_time = recipe_requirements[:meal_prep_time]
+    @restrictions = recipe_requirements[:restrictions]
+
+    # Créer le Chat
+
+    @chat = Chat.new(user: current_user, title: recipe_requirements[:ingredients])
+
+    # ... logique de création de message et LLM ici ...
+
+    if @chat.save
+      user_prompt = "My ingredients are: #{recipe_requirements[:ingredients]}, my skill level is: #{recipe_requirements[:skill_level]}, I have #{recipe_requirements[:meal_prep_time]} min to prepare it, my food restriction are: #{recipe_requirements[:restrictions]}"
+
+      # 2. Enregistrer le message de l'utilisateur (pour l'historique)
+      user_message = Message.create!(
+        chat: @chat,
+        role: "user",
+        content: user_prompt
+      )
+
+      @ruby_llm_chat = RubyLLM.chat
+      build_conversation_history
+
+      # 4. Appeler l'IA
+      # Assurez-vous que RubyLLM est bien configuré (clé API et modèle)
+      response = RubyLLM.chat.with_instructions(system_prompt).ask(user_message.content)
+
+      # 5. Sauvegarder la réponse de l'assistant
+      Message.create!(
+        chat: @chat,
+        role: "assistant",
+        content: response.content
+      )
+
+      # 6. Rediriger (UNE SEULE FOIS)
+      redirect_to chat_path(@chat)
+    else
+      # Gérer l'erreur
+      render :new, status: :unprocessable_entity
+    end
+
   end
 
-  SYSTEM_PROMPT = <<~PROMPT
-    You are an expert chef and cooking assistant.
-
-    The user will give you:
-    - ingredients available in their fridge
-    - dietary preferences
-    - cooking time constraints
-    - kitchen equipment available
-
-    Your job:
-    - Suggest 3 possible recipes
-    - Each recipe should be adapted to the ingredients they have
-    - If ingredients are missing, propose simple alternatives
-    - Keep instructions simple and beginner-friendly
-
-    Format:
-    - Use Markdown
-    - For each recipe:
-      - A title
-      - Short description
-      - List of ingredients needed
-      - Step-by-step instructions
-
-    Tone: friendly, helpful, educational.
-  PROMPT
 
   def show
     # A blank Message object for the new-message form
@@ -60,4 +79,36 @@ class ChatsController < ApplicationController
   def set_chat
     @chat = current_user.chats.find(params[:id])
   end
+
+
+  def chat_params
+  # 1. Requérir la clé principale :chat
+  params.require(:chat).permit(
+    # 2. Permettre les autres attributs directs du Chat si besoin (ex: title)
+    :title,
+
+    # 3. Permettre le hash imbriqué :recipe_requirements
+    #    et lister toutes ses sous-clés autorisées (Strong Parameters)
+    recipe_requirements: [
+      :cuisine,
+      :ingredients,
+      :skill_level,
+      :meal_type,
+      :meal_prep_time,
+      :restrictions
+    ]
+  )
+  end
+
+  def system_prompt
+    Chat::SYSTEM_PROMPT + "  username:" + current_user.username
+  end
+
+  def build_conversation_history
+    @chat.messages.each do |message|
+      @ruby_llm_chat.add_message(message)
+    end
+  end
+
+
 end

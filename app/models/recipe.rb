@@ -1,7 +1,7 @@
 class Recipe < ApplicationRecord
   belongs_to :user
+  belongs_to :message
 
-  validates :title, :ingredients, :description, :steps, presence: true;
-  validates :cooking_time, numericality: { only_integer: true };
+  validates :title, :content, presence: true;
 
 end
