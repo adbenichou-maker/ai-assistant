@@ -2,7 +2,28 @@ puts "Cleaning database..."
 Recipe.destroy_all
 User.destroy_all
 
-# --- Assumes Recipe Model has jsonb columns for ingredients and steps ---
+# --- Helper function to generate Markdown content ---
+def generate_markdown_content(data)
+  markdown = "# #{data[:title]}\n\n"
+  markdown += "**Description:** #{data[:description]}\n\n"
+  markdown += "**Cooking Time:** #{data[:cooking_time]} minutes\n\n"
+
+  markdown += "## Ingredients\n\n"
+  # Format ingredients as a bolded name followed by the amount
+  data[:ingredients].each do |name, amount|
+    markdown += "- **#{name.to_s.humanize}:** #{amount}\n"
+  end
+
+  markdown += "\n## Instructions\n\n"
+  # Format steps as an ordered list
+  data[:steps].each_with_index do |step, index|
+    markdown += "#{index + 1}. #{step}\n"
+  end
+
+  markdown
+end
+# ----------------------------------------------------
+
 
 puts "Creating user..."
 user = User.create!(
@@ -14,7 +35,7 @@ user = User.create!(
 puts "Creating 5 Recipes using Carrot, Beetroot, and Botifarra..."
 
 # Recipe 1: Botifarra and Beetroot Hash
-Recipe.create!(
+recipe_1_data = {
   title: "Botifarra and Beetroot Hash",
   cooking_time: 30,
   description: "A simple, savory hash perfect for brunch or a side dish, concentrating the flavors of the root vegetables and sausage.",
@@ -30,17 +51,22 @@ Recipe.create!(
     "Add the diced carrot and parboiled beetroot cubes to the pan. Cook, stirring occasionally, until the vegetables are tender and slightly caramelized (about 10-15 minutes).",
     "Return the botifarra to the pan and mix everything together. Season with salt and pepper.",
     "Serve hot."
-  ],
+  ]
+}
+
+Recipe.create!(
+  content: generate_markdown_content(recipe_1_data),
+  title: recipe_1_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 
 # Recipe 2: Sweet & Savory Botifarra Skewers
-Recipe.create!(
+recipe_2_data = {
   title: "Sweet & Savory Botifarra Skewers",
   cooking_time: 25,
   description: "Quick-grilled botifarra and root vegetables finished with a touch of sweetness and acidity.",
   ingredients: {
-    "Botifarra": "1 link (cut into 1-inch thick pieces)",
+    "Botifarra": "1 (cut into 1-inch thick pieces)",
     "Carrots": "3 medium (cut into thick rounds or wedges)",
     "Beetroot": "1 large (pre-cooked, sliced)",
     "Honey or maple syrup": "2 tbsp",
@@ -52,17 +78,22 @@ Recipe.create!(
     "Thread the botifarra and pre-cooked beetroot slices onto skewers (if using).",
     "Grill or pan-fry the botifarra until cooked through. Place the glazed carrots and beetroot on the grill/pan to caramelize.",
     "Serve the skewers alongside the glazed carrots."
-  ],
+  ]
+}
+
+Recipe.create!(
+  content: generate_markdown_content(recipe_2_data),
+  title: recipe_2_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 
 # Recipe 3: Botifarra and Root Vegetable Crumble
-Recipe.create!(
+recipe_3_data = {
   title: "Botifarra and Root Vegetable Crumble (Savory)",
   cooking_time: 35,
   description: "A cozy casserole combining crumbled sausage and tender root vegetables under a golden topping.",
   ingredients: {
-    "Botifarra": "1 link (cooked, sliced, and crumbled)",
+    "Botifarra": "1 (cooked, sliced, and crumbled)",
     "Carrots": "2 medium (diced, parboiled)",
     "Beetroot": "2 medium (diced, parboiled)",
     "Butter": "3 tbsp (for sauce/topping)",
@@ -77,17 +108,22 @@ Recipe.create!(
     "Combine the vegetable/sausage mixture with the sauce and pour into a small baking dish.",
     "Top with a mixture of breadcrumbs and a little melted butter or cheese.",
     "Bake at 375°F (190°C) for 15-20 minutes until the topping is golden and bubbly."
-  ],
+  ]
+}
+
+Recipe.create!(
+  content: generate_markdown_content(recipe_3_data),
+  title: recipe_3_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 
 # Recipe 4: Quick Botifarra & Beetroot Tostada
-Recipe.create!(
+recipe_4_data = {
   title: "Quick Botifarra & Beetroot Tostada",
   cooking_time: 15,
   description: "A fast, fresh, Catalan-inspired tapas dish, pairing savory sausage with a bright root vegetable slaw.",
   ingredients: {
-    "Botifarra": "1 link (cooked, sliced)",
+    "Botifarra": "1 (cooked, sliced)",
     "Beetroot": "1 large (cooked, diced)",
     "Carrot": "1 large (raw, grated)",
     "Bread slices": "4 (toasted)",
@@ -100,17 +136,22 @@ Recipe.create!(
     "Mix the diced beetroot and grated carrot with olive oil, salt, pepper, and vinegar/lemon juice to create a simple salad/slaw.",
     "Place the sliced botifarra on the toast.",
     "Serve the beetroot and carrot slaw either on top of the sausage or alongside the toast."
-  ],
+  ]
+}
+
+Recipe.create!(
+  content: generate_markdown_content(recipe_4_data),
+  title: recipe_4_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 
 # Recipe 5: Shredded Root Slaw with Warm Botifarra
-Recipe.create!(
+recipe_5_data = {
   title: "Shredded Root Slaw with Warm Botifarra",
   cooking_time: 20,
   description: "A textural salad using raw root vegetables for maximum crunch, topped with warm, fully-cooked sausage.",
   ingredients: {
-    "Botifarra": "1 link (cooked, sliced)",
+    "Botifarra": "1 (cooked, sliced)",
     "Carrots": "2 large (raw, shredded or julienned)",
     "Beetroot": "2 large (raw, shredded or julienned)",
     "Olive oil": "3 tbsp",
@@ -123,7 +164,12 @@ Recipe.create!(
     "Toss the shredded vegetables with the vinaigrette until evenly coated.",
     "Cook the botifarra until fully done and slice it.",
     "Plate the cold, crunchy slaw and top it with the warm, sliced botifarra."
-  ],
+  ]
+}
+
+Recipe.create!(
+  content: generate_markdown_content(recipe_5_data),
+  title: recipe_5_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 

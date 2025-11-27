@@ -14,18 +14,13 @@
     ">
     </div>
 
-    <div class="card-title text-center">
-      <h1 class="fw-bold"><%= @recipe.title %></h1>
-    </div>
 
     <div class="card-body">
 
-      <h3 class="fw-bold">Description:</h3>
-      <p><%= @recipe.description %></p>
-      <h3>Cooking time: <%= @recipe.cooking_time %> min</h3>
+
+      <%= raw(render_markdown(@recipe.content)) %>
 
 
-      <h3 class="fw-bold">Ingredients:</h3>
 
       <ul>
         <% @recipe.ingredients.each do |name, amount| %>
