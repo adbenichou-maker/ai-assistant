@@ -1,19 +1,29 @@
-// Specific CSS for your home-page
+// Banner
+
 .land-page .bannerin {
   background-size: cover;
   background-position: center;
   padding: 150px 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  text-align: left;
-  height: 18rem;
+  padding-left: 2rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 12rem;
+  border-radius: 5px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .land-page .bannerout {
   background-size: cover;
   background-position: center;
   padding: 150px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 2rem;
 }
 
 .land-page .bannerin h1, .land-page .bannerout h1 {
@@ -31,6 +41,7 @@
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
+// custom button
 .land-page .my-button {
   text-decoration: none;
   padding: 0.7rem;
@@ -46,11 +57,13 @@
   color: blue;
 }
 
+// H3 decoration
 .land-page h3{
   color: white;
   font-weight: 700;
 }
 
+// Card
 .land-page .cards {
   border-radius: 5px;
   margin: 1rem;
@@ -63,16 +76,18 @@
 .land-page .cards {
   border-radius: 5px;
   margin: 1rem;
+  height: 20rem;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 1rem;
-  height: 25rem;
   justify-items: center;
 }
 
 
-.land-page .card-category{
+.land-page .card-category {
   border-radius: 5px;
+  width: 100%;
+  max-width: 1200px;
+  height: 20rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,8 +112,9 @@
   font-size: x-large;
 }
 
+// Main page saved recipes animation
 
-.land-page .card-category {
-  width: 100%;
-  max-width: 25rem;
+.land-page .rotating-text {
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
 }

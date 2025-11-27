@@ -1,49 +1,52 @@
 <div class="land-page">
-  <%# Navbar %>
-  <div class="navbar navbar-expand-sm navbar-light navbar-lewagon sticky-top">
-    <div class="container-fluid">
-      <%= link_to root_path, class: "navbar-brand" do %>
-        <%= image_tag "fridgeogo.png" %>
-      <% end %>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <%# Sidebar %>
+  <% if user_signed_in? %>
+    <div data-controller="sidebar">
+      <div class="sidebar" data-sidebar-target="panel">
+        <%= link_to root_path, class: "sidebar-img" do %>
+          <%= image_tag "fridgeogo.png" %>
+        <% end %>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item dropdown">
-            <%= image_tag "https://cdn-icons-png.flaticon.com/512/219/219983.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <% if user_signed_in? %>
-                <%= link_to "Cookbook", recipes_path, class: "dropdown-item" %>
-                <%= link_to "Chats", chats_path, class: "dropdown-item" %>
-                <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
-              <% else %>
-                <%= link_to "Sign in", new_user_session_path, class: "dropdown-item" %>
-              <% end %>
-            </div>
-          </li>
-        </ul>
+       <h1 class="sidebar-text"> Saved Recipes</h1>
+
+        <% @recipes.each do |recipe| %>
+          <%= link_to recipe.title, recipe_path(recipe), class: "sidebar-btn recipe" %><br>
+        <% end %>
+
       </div>
+
+      <div class="sidebar-toggle" data-action="click->sidebar#toggle">
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+
     </div>
-  </div>
+  <% end %>
 
   <%# Banner %>
 
-  <div class="<%= user_signed_in? ? 'bannerin' : 'bannerout' %>" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740&q=80);">
-    <div class="container">
-    <% if user_signed_in? %>
-      <h3>Welcome back <%= current_user.username %></h3>
-      <h1>What are we cooking today?</h1>
-      <p> (recs) </p>
-    <% else %>
-      <h1>AI Recipe Finder</h1>
-      <p>Tell the AI your ingredients — get an instant recipe.</p>
-      <%= link_to "Sign in", new_user_session_path, class: "my-button" %>
-      <%= link_to "Sign up", new_user_registration_path, class: "my-button" %>
-    <% end %>
+  <div class="<%= user_signed_in? ? 'bannerin' : 'bannerout' %>"
+      style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740&q=80);">
+
+    <div class="banner-inner">
+      <% if user_signed_in? %>
+        <h3>Welcome back <%= current_user.username %></h3>
+        <h1>What are we cooking today?</h1>
+
+        <a
+          data-controller="rotate"
+          data-rotate-recipes-value="<%= @recipes.map { |r| [r.title, recipe_path(r)] }.to_json %>"
+          class="rotating-text sidebar-btn recipe">
+        </a>
+
+      <% else %>
+        <h1>AI Recipe Finder</h1>
+        <p>Tell the AI your ingredients — get an instant recipe.</p>
+        <%= link_to "Sign in", new_user_session_path, class: "my-button" %>
+        <%= link_to "Sign up", new_user_registration_path, class: "my-button" %>
+      <% end %>
     </div>
+
   </div>
 
 
