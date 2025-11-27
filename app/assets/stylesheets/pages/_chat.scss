@@ -38,20 +38,18 @@
 
 /* "Save Recipe" button styling */
 .my-button {
-  display: inline-block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  padding: 6px 10px;
-  border-radius: 12px;
-  background-color: #eef6ff;
-  border: 1px solid #d8e7ff;
-  color: #0a3c78;
   text-decoration: none;
+  padding: 0.7rem;
+  background-color: #f15a26;
+  font-weight: 550;
+  color: #222222;
+  margin-right: 1rem;
+  transition: all 0.3s;
 }
 
 .my-button:hover {
-  background-color: #dceaff;
-  color: #073065;
+  background-color: #222222;
+  color: #f15a26;
 }
 
 /* === Sticky input bar at bottom === */
