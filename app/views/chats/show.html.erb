@@ -1,30 +1,43 @@
-<h1><%= "Recipes including: #{@chat.title}" %></h1>
+<div class="chat-container" style="display: flex; flex-direction: column; height: 100vh;">
 
-<div id="messages" class="mb-5">
-
-  <% @chat.messages.each do |message| %>
-    <% if message.role == "user" %>
-      <div class="d-flex justify-content-end mb-3">
-        <div class="bg-light px-3 py-2 rounded-pill">
-          <%= message.content %>
+  <!-- Scrollable messages area -->
+  <div id="messages"
+       style="flex: 1; overflow-y: auto; padding: 20px;">
+    <% @chat.messages.each do |message| %>
+      <% if message.role == "user" %>
+        <div class="message-row justify-content-end">
+          <div class="chat-bubble chat-user">
+            <%= message.content %>
+          </div>
         </div>
-      </div>
-
-    <% else %>
-      <div class="d-flex justify-content-start mb-4">
-        <div class="px-3 py-2 bg-white border rounded">
-          <%= link_to "Save Recipe", new_message_recipe_path(message), class: 'my-button' %>
-          <%= raw(render_markdown(message.content)) %>
+      <% else %>
+        <div class="message-row justify-content-start">
+          <div class="chat-bubble chat-assistant">
+            <%= link_to "Save Recipe", new_message_recipe_path(message), class: 'my-button' %>
+            <%= raw(render_markdown(message.content)) %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 
-</div>
+  <!-- Input bar fixed at bottom -->
+  <div id="chat-input-bar"
+       style="border-top: 1px solid #e5e7eb; padding: 12px; background: white;">
 
-<div id="new_message_container">
-  <%= simple_form_for [@chat, @message] do |f| %>
-    <%= f.input :content, label: "Your ingredients or question", placeholder: "Ex: I have chicken, tomatoes and rice. Give me a 20-minute recipe." %>
-    <%= f.button :submit, "Generate recipes", class: "btn btn-primary" %>
-  <% end %>
+    <%= simple_form_for [@chat, @message], html: { class: "chat-form d-flex" } do |f| %>
+
+      <div class="chat-input-wrapper flex-grow-1" style="margin-right: 10px;">
+        <%= f.input_field :content,
+              placeholder: "Type your ingredients or question...",
+              class: "chat-input",
+              style: "width: 100%;" %>
+      </div>
+
+      <%= f.button :submit, "Send", class: "chat-submit-btn" %>
+
+    <% end %>
+
+  </div>
+
 </div>
