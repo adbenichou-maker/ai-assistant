@@ -102,3 +102,17 @@
   width: 100%;
   max-width: 25rem;
 }
+
+.my-button {
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  transition: all 0.3s;
+  padding: 10px;
+}
+
+.my-button:hover {
+  background-color: white;
+  color: blue;
+}
