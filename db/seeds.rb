@@ -55,7 +55,8 @@ recipe_1_data = {
 }
 
 Recipe.create!(
-  content: generate_markdown_content(recipe_1_data), # <-- The final compiled Markdown content
+  content: generate_markdown_content(recipe_1_data),
+  title: recipe_1_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 
@@ -82,6 +83,7 @@ recipe_2_data = {
 
 Recipe.create!(
   content: generate_markdown_content(recipe_2_data),
+  title: recipe_2_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 
@@ -111,6 +113,7 @@ recipe_3_data = {
 
 Recipe.create!(
   content: generate_markdown_content(recipe_3_data),
+  title: recipe_3_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 
@@ -138,6 +141,7 @@ recipe_4_data = {
 
 Recipe.create!(
   content: generate_markdown_content(recipe_4_data),
+  title: recipe_4_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 
@@ -165,6 +169,7 @@ recipe_5_data = {
 
 Recipe.create!(
   content: generate_markdown_content(recipe_5_data),
+  title: recipe_5_data[:title], # <-- ADDED: Passes title to satisfy model validation
   user: user
 )
 

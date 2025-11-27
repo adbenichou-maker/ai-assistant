@@ -33,14 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_27_100028) do
   end
 
   create_table "recipes", force: :cascade do |t|
-<<<<<<< HEAD
-=======
     t.string "title"
-    t.integer "cooking_time"
-    t.string "ingredients"
-    t.text "description"
-    t.text "steps"
->>>>>>> d9361c36c9334dada7fd8ab3b7c8db07cefdb78c
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "content", null: false

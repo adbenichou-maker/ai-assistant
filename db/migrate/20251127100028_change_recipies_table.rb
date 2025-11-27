@@ -12,7 +12,7 @@ class ChangeRecipiesTable < ActiveRecord::Migration[7.1]
     change_column_null :recipes, :content, false
 
 
-    remove_column :recipes, :title, :string if column_exists?(:recipes, :title)
+
     remove_column :recipes, :cooking_time, :integer if column_exists?(:recipes, :cooking_time)
     remove_column :recipes, :ingredients, :jsonb if column_exists?(:recipes, :ingredients)
     remove_column :recipes, :steps, :jsonb if column_exists?(:recipes, :steps)
