@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :messages, through: :recipes
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+          :recoverable, :rememberable, :validatable
 
   validates :username, presence: true, uniqueness: true
 

@@ -5,6 +5,8 @@ class ChatsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+
+    @chats = Chats.all.order(updated_at: :desc)
   end
 
   def new

@@ -1,33 +1,6 @@
 <div class="land-page">
-  <%# Navbar %>
-  <div class="navbar navbar-expand-sm navbar-light navbar-lewagon sticky-top">
-    <div class="container-fluid">
-      <%= link_to root_path, class: "navbar-brand" do %>
-        <%= image_tag "fridgeogo.png" %>
-      <% end %>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item dropdown">
-            <%= image_tag "https://cdn-icons-png.flaticon.com/512/219/219983.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <% if user_signed_in? %>
-                <%= link_to "Cookbook", recipes_path, class: "dropdown-item" %>
-                <%= link_to "Chats", chats_path, class: "dropdown-item" %>
-                <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
-              <% else %>
-                <%= link_to "Sign in", new_user_session_path, class: "dropdown-item" %>
-              <% end %>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
 
   <%# Banner %>
 
@@ -53,7 +26,7 @@
       <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://alis.alberta.ca/media/697297/cook.jpg?width=830&height=510&v=1d4acf1f5493b20)">
         <%= link_to new_chat_path, class: "card-link" do %>
           AI Cook
-         <% end %>
+        <% end %>
       </div>
     </div>
 
@@ -61,4 +34,4 @@
   <h1>please log in</h1>
   <% end %>
 
-</div>
+  </div>
