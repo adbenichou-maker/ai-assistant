@@ -1,20 +1,19 @@
 class ApplicationController < ActionController::Base
-before_action :authenticate_user!
-before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!, :set_recipes
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action
 
-protected
+  protected
 
-def configure_permitted_parameters
-  devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
-  devise_parameter_sanitizer.permit(:account_update, keys: [:username])
-end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username])
+  end
 
-before_action :set_recipes
 
-private
+  private
 
-def set_recipes
-  @recipes = Recipe.all
-end
-
+  def set_recipes
+    @recipes = current_user&.recipes
+  end
 end

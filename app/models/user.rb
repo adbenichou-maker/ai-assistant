@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :chats
-  has_many :recipes
-  has_many :messages, through: :recipes
+  has_many :messages, through: :chats
+  has_many :recipes, through: :messages
 
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
