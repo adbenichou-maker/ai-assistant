@@ -4,16 +4,15 @@ export default class extends Controller {
   static targets = ["messages"]
 
   connect() {
-    this.scrollToBottom()
-
-    document.addEventListener("turbo:after-stream-render", () => {
-      this.scrollToBottom()
-    })
+    this.scrollToTopOfLastMessage()
   }
 
-  scrollToBottom() {
-    if (this.hasMessagesTarget) {
-      this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight
-    }
+  scrollToTopOfLastMessage() {
+    const container = this.messagesTarget
+    const lastMessage = container.lastElementChild
+
+    if (!lastMessage) return
+
+    container.scrollTop = lastMessage.offsetTop
   }
 }
