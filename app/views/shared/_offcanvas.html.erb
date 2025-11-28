@@ -1,39 +1,53 @@
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="chatsOffcanvas" aria-labelledby="chatsOffcanvasLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="chatsOffcanvasLabel">Recent Chats</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+<div class="offcanvas offcanvas-end sidebar" tabindex="-1" id="chatsOffcanvas" aria-labelledby="chatsOffcanvasLabel">
+  <div class="offcanvas-header pb-0 border-bottom-0">
+    <%# Using the logo and title structure similar to the provided sidebar example %>
+    <div class="d-flex align-items-center">
+      <%= link_to root_path "Home", class: "me-2" do %>
+        <%# Adjust size to fit header, assuming 'fridgeogo.png' is available %>
+
+      <% end %>
+      <h5 class="offcanvas-title fw-bold" id="chatsOffcanvasLabel">Recent Chats</h5>
+    </div>
+    <button type="button" class="btn-close text-bg-light text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
-  <div class="offcanvas-body">
+
+  <div class="offcanvas-body pt-2">
     <% if user_signed_in? %>
       <div class="d-grid gap-2 mb-4">
         <%= link_to "Start a New Chat", new_chat_path, class: "btn btn-primary" %>
       </div>
 
-      <ul class="list-group list-group-flush">
+      <%# Actual chat list implementation: Fetching and ordering all chats for the current user %>
+      <div class="chat-list">
         <% chats = current_user.chats.order(updated_at: :desc) %>
 
         <% if chats.any? %>
           <% chats.each do |chat| %>
-            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-              <%= link_to chat_path(chat), class: "text-decoration-none text-truncate me-2" do %>
+            <%# Styled to look like a full-width button/link, similar to a sidebar item %>
+            <%# Removed text-truncate from the link to allow title wrapping %>
+            <%= link_to chat_path(chat), class: "d-block p-2 text-decoration-none rounded-2 mb-1 chat-sidebar-link" do %>
+              <div class="d-flex justify-content-between align-items-center">
+                <%# Display the chat title - Removed flex-grow-1, allowed wrapping %>
+                <span class="text-white fw-medium me-2" style="white-space: normal; overflow-wrap: break-word; max-width: 70%;"><%= chat.title %></span>
 
-                <%= chat.title %>
-              <% end %>
-
-              <%# Display time since last update (e.g., "3 days ago") %>
-              <span class="badge bg-secondary rounded-pill flex-shrink-0">
-                <%= time_ago_in_words(chat.updated_at) %> ago
-              </span>
-            </li>
+                <%# Display time since last update (e.g., "3 days ago") - Changed text-muted to text-light %>
+                <small class="text-light flex-shrink-0">
+                  <%= time_ago_in_words(chat.updated_at) %> ago
+                </small>
+              </div>
+            <% end %>
           <% end %>
         <% else %>
-          <li class="list-group-item">You haven't started any chats yet!</li>
+          <%# Changed text-muted to text-light %>
+          <p class="text-light text-center mt-3">You haven't started any chats yet!</p>
         <% end %>
-      </ul>
+      </div>
 
     <% else %>
-      <p class="text-center">Please sign in to view your chat history.</p>
+      <%# Added text-white to ensure visibility when not signed in %>
+      <p class="text-center text-white">Please sign in to view your chat history.</p>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,40 @@
+
+  // Apply background and general text color to the Offcanvas when it has the .sidebar class
+  .offcanvas.sidebar {
+    background: #222 !important; // Use !important to override Bootstrap defaults
+    color: white;
+    // Set width to match the custom sidebar size (250px)
+    width: 350px;
+  }
+
+  // Styling for the logo image in the header
+  .sidebar img {
+    max-width: 100%;
+    height: 40px; // Matches the style applied in the ERB
+    display: block;
+    margin: 0 auto;
+  }
+
+  // Styling for the main heading (Recent Chats)
+  .offcanvas-title {
+    color: white;
+    font-weight: 700;
+    font-size: x-large;
+    transition: all 0.3s;
+  }
+
+  // Styling for the chat links (renamed from .sidebar-btn to .chat-sidebar-link)
+  .chat-sidebar-link {
+    display: block;
+    text-decoration: none;
+    color: white; // Default text color for links
+    font-weight: 700;
+    font-size: medium;
+    transition: all 0.3s;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .chat-sidebar-link:hover {
+    color: orange; // Hover color
+    background-color: rgba(255, 255, 255, 0.1); // Subtle background on hover
+  }
