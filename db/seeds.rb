@@ -37,7 +37,7 @@ user = User.create!(
 # --- START: CHAT AND MESSAGE CREATION ---
 puts "Creating one initial Chat and Message..."
 # Create the chat thread
-chat = Chat.create!(user: user)
+chat = Chat.create!(user: user, title: "Botifara Ideas")
 
 # Create the user's initial message that prompts the AI to suggest recipes
 # NOTE: Removed 'user: user' and replaced with 'role: "user"' to match the schema
