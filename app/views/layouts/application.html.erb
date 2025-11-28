@@ -28,7 +28,8 @@
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <% if user_signed_in? %>
                     <%= link_to "Cookbook", recipes_path, class: "dropdown-item" %>
-                    <%= link_to "Chats", chats_path, class: "dropdown-item" %>
+                    <%# UPDATED: Use data attributes to open the Offcanvas side drawer %>
+                    <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatsOffcanvas" aria-controls="chatsOffcanvas">Chats</a>
                     <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
                   <% else %>
                     <%= link_to "Sign in", new_user_session_path, class: "dropdown-item" %>
@@ -43,5 +44,9 @@
     <% end %>
       <%= yield %>
     </div>
+
+    <%# RENDER CHATS OFFCANVAS: Renders the side drawer partial if the user is signed in %>
+    <%= render 'shared/offcanvas' if user_signed_in? %>
+
   </body>
 </html>
