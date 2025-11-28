@@ -22,20 +22,30 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item dropdown">
-                <%= image_tag "https://cdn-icons-png.flaticon.com/512/219/219983.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <% if user_signed_in? %>
-                    <%= link_to "Cookbook", recipes_path, class: "dropdown-item" %>
-                    <%# UPDATED: Use data attributes to open the Offcanvas side drawer %>
-                    <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatsOffcanvas" aria-controls="chatsOffcanvas">Chats</a>
+            <ul class="navbar-nav ms-auto">
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to "Cookbook", recipes_path, class: "nav-link text-white" %>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatsOffcanvas" aria-controls="chatsOffcanvas">Chats</a>
+                </li>
+                <li class="nav-item ms-2">
+
+                  <%= link_to "New Chat", new_chat_path, class: "nav-link text-white" %>
+                </li>
+
+                <li class="nav-item dropdown ms-3">
+                  <%= image_tag "https://cdn-icons-png.flaticon.com/512/219/219983.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
-                  <% else %>
-                    <%= link_to "Sign in", new_user_session_path, class: "dropdown-item" %>
-                  <% end %>
-                </div>
-              </li>
+                  </div>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to "Sign in", new_user_session_path, class: "nav-link text-white" %>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>
@@ -44,8 +54,6 @@
     <% end %>
       <%= yield %>
     </div>
-
-    <%# RENDER CHATS OFFCANVAS: Renders the side drawer partial if the user is signed in %>
     <%= render 'shared/offcanvas' if user_signed_in? %>
 
   </body>
