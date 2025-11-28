@@ -1,7 +1,10 @@
-<div class="chat-container" style="display: flex; flex-direction: column; height: 100vh;">
+<div class="chat-container"
+     data-controller="autoscroll"
+     style="display: flex; flex-direction: column; height: 100vh;">
 
   <!-- Scrollable messages area -->
   <div id="messages"
+       data-autoscroll-target="messages"
        style="flex: 1; overflow-y: auto; padding: 20px;">
     <% @chat.messages.each do |message| %>
       <% if message.role == "user" %>
@@ -13,8 +16,11 @@
       <% else %>
         <div class="message-row justify-content-start">
           <div class="chat-bubble chat-assistant">
-            <%= link_to "Save Recipe", new_message_recipe_path(message), class: 'my-button' %>
             <%= raw(render_markdown(message.content)) %>
+
+            <div style="margin-top: 10px;">
+              <%= link_to "Save Recipe", new_message_recipe_path(message), class: 'my-button' %>
+            </div>
           </div>
         </div>
       <% end %>
