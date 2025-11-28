@@ -89,7 +89,6 @@ recipe_1_data = {
 recipes << Recipe.create!(
   content: generate_markdown_content(recipe_1_data),
   title: recipe_1_data[:title],
-  user: user,
   message_id: message_id_for_recipes
 )
 
@@ -117,7 +116,6 @@ recipe_2_data = {
 recipes << Recipe.create!(
   content: generate_markdown_content(recipe_2_data),
   title: recipe_2_data[:title],
-  user: user,
   message_id: message_id_for_recipes
 )
 
@@ -148,7 +146,6 @@ recipe_3_data = {
 recipes << Recipe.create!(
   content: generate_markdown_content(recipe_3_data),
   title: recipe_3_data[:title],
-  user: user,
   message_id: message_id_for_recipes
 )
 
@@ -177,7 +174,6 @@ recipe_4_data = {
 recipes << Recipe.create!(
   content: generate_markdown_content(recipe_4_data),
   title: recipe_4_data[:title],
-  user: user,
   message_id: message_id_for_recipes
 )
 
@@ -206,7 +202,7 @@ recipe_5_data = {
 recipes << Recipe.create!(
   content: generate_markdown_content(recipe_5_data),
   title: recipe_5_data[:title],
-  user: user,
+  # user: user,
   message_id: message_id_for_recipes
 )
 

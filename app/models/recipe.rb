@@ -1,7 +1,10 @@
 class Recipe < ApplicationRecord
-  belongs_to :user
   belongs_to :message
 
-  validates :title, :content, presence: true;
+  has_one :chat, through: :message
+  has_one :user, through: :chat
+
+
+  validates :title, :content, presence: true
 
 end
