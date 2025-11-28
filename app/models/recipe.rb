@@ -4,7 +4,5 @@ class Recipe < ApplicationRecord
   has_one :chat, through: :message
   has_one :user, through: :chat
 
-
-  validates :title, :content, presence: true
-
+  validates :title,:content, presence: true
 end
