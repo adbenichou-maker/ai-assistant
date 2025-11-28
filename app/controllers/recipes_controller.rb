@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   def index
-    @recipes = Recipe.all
+    @recipes = current_user.recipes
   end
 
   def new
@@ -11,7 +11,6 @@ class RecipesController < ApplicationController
 def create
   @message = Message.find(params[:message_id])
   @recipe = Recipe.new(recipe_params)
-  @recipe.user = current_user
   @recipe.message = @message
 
   @recipe.content = @message.content
@@ -19,10 +18,11 @@ def create
   @recipe.save
 
   if @recipe.save
-    redirect_to recipes_path, notice: "Recette sauvegardée !"
+    chat = @message.chat
+    redirect_to chat_path(chat), notice: "Recette sauvegardée !"
   else
-    @message = Message.find(params[:message_id])
-    render :new, status: :unprocessable_entity
+    @message = @recipe.message
+      render :new, status: :unprocessable_entity
 
 
   end
@@ -42,7 +42,7 @@ end
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :content, :comment)
+    params.require(:recipe).permit(:title, :content, :comment, :message_id)
     # Ajoutez tous les attributs de Recipe qui peuvent être modifiés par le formulaire
   end
 
